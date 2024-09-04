@@ -30,6 +30,11 @@ public class RestaurantServices {
         return restRepository.insert(restObj);
     }
 
+    public void delete(String id) {
+        findById(id);
+        restRepository.deleteById(id);
+    }
+
     public Restaurant fromDTO(RestaurantsDTO objDto) {
         return new Restaurant(objDto.getId(), objDto.getName(), objDto.getPhone(),
         objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
