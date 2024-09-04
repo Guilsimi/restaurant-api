@@ -35,6 +35,19 @@ public class RestaurantServices {
         restRepository.deleteById(id);
     }
 
+    public Restaurant update(Restaurant restObj) {
+        Restaurant newRestObj = findById(restObj.getId());
+        updateData(newRestObj, restObj);
+        return restRepository.save(newRestObj);
+    }
+
+    private void updateData(Restaurant newRestObj, Restaurant restObj) {
+        newRestObj.setName(restObj.getName() != null ? restObj.getName() : newRestObj.getName());
+        newRestObj.setPhone(restObj.getPhone() != null ? restObj.getPhone() : newRestObj.getPhone());
+        newRestObj.setCnpj(restObj.getCnpj() != null ? restObj.getCnpj() : newRestObj.getCnpj());
+        newRestObj.setEmail(restObj.getEmail() != null ? restObj.getEmail() : newRestObj.getEmail());
+    }
+
     public Restaurant fromDTO(RestaurantsDTO objDto) {
         return new Restaurant(objDto.getId(), objDto.getName(), objDto.getPhone(),
         objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
