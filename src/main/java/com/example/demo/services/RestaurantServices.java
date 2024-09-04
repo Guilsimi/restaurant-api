@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Restaurant;
+import com.example.demo.dto.RestaurantsDTO;
 import com.example.demo.repository.RestaurantRepository;
 import com.example.demo.services.exception.ObjectNotFoundException;
 
@@ -23,5 +24,14 @@ public class RestaurantServices {
     public Restaurant findById(String id) {
         Optional<Restaurant> restaurant = restRepository.findById(id);
         return restaurant.orElseThrow(() -> new ObjectNotFoundException("Restaurante não encontrado"));
+    }
+
+    public Restaurant insert(Restaurant restObj) {
+        return restRepository.insert(restObj);
+    }
+
+    public Restaurant fromDTO(RestaurantsDTO objDto) {
+        return new Restaurant(objDto.getId(), objDto.getName(), objDto.getPhone(),
+        objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
     }
 }
