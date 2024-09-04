@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.domain.Restaurant;
 
 @Repository
-public interface RestaurantRepository extends MongoRepository<Restaurant, Integer> {
+public interface RestaurantRepository extends MongoRepository<Restaurant, String> {
 
     
 
