@@ -20,6 +20,9 @@ import com.example.demo.domain.Restaurant;
 import com.example.demo.dto.RestaurantsDTO;
 import com.example.demo.services.RestaurantServices;
 
+import jakarta.annotation.Resource;
+
+@Resource
 @RestController
 @RequestMapping(value = "/restaurants")
 public class RestaurantResources {
