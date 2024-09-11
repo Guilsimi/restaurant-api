@@ -12,6 +12,8 @@ import com.example.demo.dto.FromRestaurantDTO;
 @Document
 public class Menu implements Serializable {
 
+    private static List<Menu> menuList = new ArrayList<>();
+
     @Id
     private String id;
     private String type;
@@ -26,6 +28,8 @@ public class Menu implements Serializable {
         this.id = id;
         this.type = type;
         this.fromRestaurant = fromRestaurant;
+
+        menuList.add(this);
     }
 
     public String getId() {
@@ -47,6 +51,10 @@ public class Menu implements Serializable {
     public List<Item> getItems() {
         return items;
     }
+
+    public static List<Menu> getMenuList() {
+        return menuList;
+    } 
 
     @Override
     public int hashCode() {

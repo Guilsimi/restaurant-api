@@ -18,7 +18,6 @@ public class OrdersDTO implements Serializable {
 
     public OrdersDTO(Order order) {
         id = order.getId();
-        value = order.getValue();
         payment = order.getPaymentForm();
         address = order.getAddress();
     }

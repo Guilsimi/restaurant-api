@@ -3,9 +3,8 @@ package com.example.demo.domain;
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.example.demo.dto.MenuRefDTO;
 
 @Document
 public class Item implements Serializable {
@@ -15,12 +14,14 @@ public class Item implements Serializable {
     private String name;
     private Double value;
     private String description;
-    private MenuRefDTO menuReference;
+
+    @DBRef(lazy = true)
+    private Menu menuReference;
     
     public Item() {
     }
 
-    public Item(String id, String name, Double value, String description, MenuRefDTO menuReference) {
+    public Item(String id, String name, Double value, String description, Menu menuReference) {
         this.id = id;
         this.name = name;
         this.value = value;
@@ -60,11 +61,11 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public MenuRefDTO getMenu() {
+    public Menu getMenu() {
         return menuReference;
     }
 
-    public void setMenu(MenuRefDTO menuReference) {
+    public void setMenu(Menu menuReference) {
         this.menuReference = menuReference;
     }    
 

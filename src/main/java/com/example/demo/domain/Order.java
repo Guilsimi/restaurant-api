@@ -1,30 +1,36 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.demo.domain.enums.PaymentForm;
-import com.example.demo.dto.OrderClientDTO;
+import com.example.demo.services.exception.ObjectNotFoundException;
 
 @Document
 public class Order implements Serializable {
 
     @Id
     private String id;
-    private Double value;
     private int payment;
     private String address;
-    private OrderClientDTO orderClient;
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private Double total;
+
+    @DBRef
+    private Client orderClient;
     
+
     public Order() {
 
     }
 
-    public Order(String id, Double value, PaymentForm payment, String address, OrderClientDTO orderClient) {
+    public Order(String id, PaymentForm payment, String address, Client orderClient) {
         this.id = id;
-        this.value = value;
         setPaymentForm(payment);
         this.address = address;
         this.orderClient = orderClient;
@@ -36,14 +42,6 @@ public class Order implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
     }
 
     public String getAddress() {
@@ -59,17 +57,47 @@ public class Order implements Serializable {
     }
 
     public void setPaymentForm(PaymentForm paymentForm) {
-        if(paymentForm != null) {
+        if (paymentForm != null) {
             this.payment = paymentForm.getCode();
         }
     }
 
-    public OrderClientDTO getOrderClient() {
+    public Client getOrderClient() {
         return orderClient;
     }
 
-    public void setOrderClient(OrderClientDTO orderClient) {
+    public void setOrderClient(Client orderClient) {
         this.orderClient = orderClient;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    private void updateTotal() {
+        double newTotal = 0.0;
+        for (OrderItem item : orderItems) {
+            newTotal += item.calculateSubTotal();
+        }
+        this.total = newTotal;
+    }
+
+    public void addOrderItem(List<OrderItem> items) {
+        this.orderItems.addAll(items);
+        updateTotal();
+    }
+
+    public void removeOrderItem(OrderItem item) {
+        if (getOrderItems().contains(item)) {
+            this.orderItems.remove(item);
+            updateTotal();
+        } else {
+            throw new ObjectNotFoundException("O pedido não contém o objeto");
+        }
+    }
+
+    public Double getTotal() {
+        return total;
     }
 
     @Override

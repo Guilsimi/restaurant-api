@@ -1,6 +1,8 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,12 +10,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Client implements Serializable {
 
+    private static List<Client> clientList = new ArrayList<>();
+
     @Id
     private String id;
     private String name;
     private Long phone;
     private String email;
     private String password;
+
+    private List<Order> orders = new ArrayList<>();
 
     public Client() {
 
@@ -25,6 +31,8 @@ public class Client implements Serializable {
         this.phone = phone;
         this.email = email;
         this.password = password;
+
+        clientList.add(this);
     }
 
     public String getId() {
@@ -67,6 +75,14 @@ public class Client implements Serializable {
         this.password = password;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public static List<Client> getClientList() {
+        return clientList;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -92,6 +108,4 @@ public class Client implements Serializable {
         return true;
     }
 
-    
-    
 }

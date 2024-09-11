@@ -10,78 +10,67 @@ import com.example.demo.domain.Client;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Menu;
 import com.example.demo.domain.Order;
+import com.example.demo.domain.OrderItem;
 import com.example.demo.domain.Restaurant;
 import com.example.demo.domain.enums.PaymentForm;
 import com.example.demo.dto.FromRestaurantDTO;
-import com.example.demo.dto.MenuRefDTO;
-import com.example.demo.dto.OrderClientDTO;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MenuRepository;
+import com.example.demo.repository.OrderItemRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.RestaurantRepository;
+import com.example.demo.resources.ItemResources;
+import com.example.demo.resources.OrderResources;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
 
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+        @Autowired
+        private RestaurantRepository restaurantRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
+        @Autowired
+        private ClientRepository clientRepository;
 
-    @Autowired
-    private OrderRepository orderRepository;
+        @Autowired
+        private OrderRepository orderRepository;
 
-    @Autowired 
-    private ItemRepository itemRepository;
+        @Autowired
+        private ItemRepository itemRepository;
 
-    @Autowired
-    private MenuRepository menuRepository;
+        @Autowired
+        private MenuRepository menuRepository;
 
-    @Override
-    public void run(String... arg0) throws Exception {
+        @Autowired
+        private OrderItemRepository orderItemRepository;
 
-        restaurantRepository.deleteAll();
-        clientRepository.deleteAll();
-        orderRepository.deleteAll();
-        itemRepository.deleteAll();
-        menuRepository.deleteAll();
+        @Autowired 
+        OrderResources oResources;
 
-        Restaurant marmitaria = new Restaurant(null, "MarmitOns", 999999999L, 
-        00700700001007L, "marmitons@gmail.com", "senhadamarmitaria");
+        @Autowired
+        ItemResources iResources;
 
-        Restaurant salgadaria = new Restaurant(null, "Salgadaria Só Filé", 991909091L,
-        0050403020100L, "salgadaria@gmail.com", "senhadasalgadaria");
+        @Override
+        public void run(String... arg0) throws Exception {
 
-        Client beto = new Client(null, "Beto Pedreiro", 990909090L, 
-        "BetoPedras@gmail.com", "990909090beto");
+                restaurantRepository.deleteAll();
+                clientRepository.deleteAll();
+                orderRepository.deleteAll();
+                itemRepository.deleteAll();
+                menuRepository.deleteAll();
+                orderItemRepository.deleteAll();
 
-        Client bino = new Client(null, "Bino Oreia", 991234567L, 
-        "BinoBetinhoJr@gmail.com", "binociladas1");
+                Restaurant restaurant = new Restaurant(null, "Teste", 1234L, 15457L, "teste@gmail.com", "123");
 
-        restaurantRepository.saveAll(Arrays.asList(marmitaria, salgadaria));
-        clientRepository.saveAll(Arrays.asList(beto, bino));
+                restaurantRepository.save(restaurant);
 
-        Order order1 = new Order(null, 520.00, PaymentForm.PIX, "Rua Zika, 720", new OrderClientDTO(bino));
-        
-        orderRepository.saveAll(Arrays.asList(order1));
+                Menu menu = new Menu(null, "Rango", new FromRestaurantDTO(restaurant));
 
-        Menu menuMarmitaria = new Menu(null, "Comidas", new FromRestaurantDTO(marmitaria)); 
+                menuRepository.save(menu);
 
-        menuRepository.saveAll(Arrays.asList(menuMarmitaria));
+                Item item = new Item(null, "Item teste", 25.20, "descrisao", menu);
 
-        Item marmitaP = new Item(null, "Marmita P", 10.0, 
-        "Marmita com Arroz e Feijão", new MenuRefDTO(menuMarmitaria));
-
-        Item marmitaM = new Item(null, "Marmita M", 15.0, 
-        "Marmita com Arroz e Feijão", new MenuRefDTO(menuMarmitaria));
-
-        itemRepository.saveAll(Arrays.asList(marmitaP, marmitaM));
-
-        menuMarmitaria.getItems().addAll(Arrays.asList(marmitaP, marmitaM));
-        menuRepository.saveAll(Arrays.asList(menuMarmitaria));
-
-    }
+                iResources.createItems(item);
+        }
 
 }

@@ -2,37 +2,29 @@ package com.example.demo.domain;
 
 import java.io.Serializable;
 
-import com.example.demo.domain.pk.OrderItemPK;
-
 public class OrderItem implements Serializable {
 
-    private OrderItemPK id;
+    private String id;
+    private Item item;
     private Integer quantity;
+    private Double subTotal;
 
     public OrderItem() {
 
     }
 
-    public OrderItem(Order order, Item item, Integer quantity) {
-        id.setOrder(order);
-        id.setItem(item);
+    public OrderItem(Item item, Integer quantity) {
+        this.id = item.getId();
+        this.item = item;
         this.quantity = quantity;
     }
 
-    public Order getOrder() {
-        return id.getOrder();
-    }
-
-    public void setOrder(Order order) {
-        id.setOrder(order);
-    }
-
     public Item getItem() {
-        return id.getItem();
+        return item;
     }
 
     public void setItem(Item item) {
-        id.setItem(item);
+        this.item = item;
     }
 
     public Integer getQuantity() {
@@ -41,6 +33,16 @@ public class OrderItem implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double calculateSubTotal() {
+        Double subTotal = getItem().getValue() * quantity;
+        this.subTotal = subTotal;
+        return subTotal;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
     }
 
     @Override
@@ -68,5 +70,4 @@ public class OrderItem implements Serializable {
         return true;
     }
 
-    
 }

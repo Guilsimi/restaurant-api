@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Item;
 import com.example.demo.repository.ItemRepository;
+import com.example.demo.repository.MenuRepository;
 import com.example.demo.services.exception.ObjectNotFoundException;
 
 @Service
@@ -16,6 +17,9 @@ public class ItemServices {
     @Autowired
     private ItemRepository iRepository;
 
+    @Autowired 
+    private MenuRepository mRepository;
+
     public List<Item> findAll() {
         return iRepository.findAll();
     }
@@ -23,5 +27,10 @@ public class ItemServices {
     public Item findById(String id) {
         Optional<Item> item = iRepository.findById(id);
         return item.orElseThrow(() -> new ObjectNotFoundException("Item não encontrado"));
+    }
+
+        public void createItems(Item item) {
+        iRepository.save(item);
+        mRepository.save(item.getMenu());
     }
 }
