@@ -2,21 +2,23 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
+import com.example.demo.domain.Client;
 import com.example.demo.domain.Order;
 import com.example.demo.domain.enums.PaymentForm;
 
-public class OrdersDTO implements Serializable {
+public class OrderDTO implements Serializable {
 
     private String id;
     private Double value;
     private PaymentForm payment;
     private String address;
+    private Client client;
     
-    public OrdersDTO() {
+    public OrderDTO() {
 
     }
 
-    public OrdersDTO(Order order) {
+    public OrderDTO(Order order) {
         id = order.getId();
         payment = order.getPaymentForm();
         address = order.getAddress();
@@ -54,4 +56,13 @@ public class OrdersDTO implements Serializable {
         this.payment = payment;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    
 }

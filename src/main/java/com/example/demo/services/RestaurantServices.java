@@ -45,6 +45,10 @@ public class RestaurantServices {
         return restRepository.save(newRestObj);
     }
 
+    public void createRestaurant(Restaurant restaurant) {
+        restRepository.save(restaurant);
+    }
+
     private void updateData(Restaurant newRestObj, Restaurant restObj) {
         newRestObj.setName(restObj.getName() != null ? restObj.getName() : newRestObj.getName());
         newRestObj.setPhone(restObj.getPhone() != null ? restObj.getPhone() : newRestObj.getPhone());

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Order;
+import com.example.demo.dto.OrderDTO;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.services.exception.ObjectNotFoundException;
@@ -36,6 +37,10 @@ public class OrderServices {
 
     public void removeAll() {
         oRepository.deleteAll();
+    }
+
+    public Order fromDTO(OrderDTO orderDTO) {
+        return new Order(orderDTO.getId(), orderDTO.getPayment(), orderDTO.getAddress(), orderDTO.getClient());
     }
 
 }

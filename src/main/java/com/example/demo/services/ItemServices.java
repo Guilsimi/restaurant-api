@@ -18,7 +18,7 @@ public class ItemServices {
     @Autowired
     private ItemRepository iRepository;
 
-    @Autowired 
+    @Autowired
     private MenuRepository mRepository;
 
     @Autowired
@@ -33,7 +33,7 @@ public class ItemServices {
         return item.orElseThrow(() -> new ObjectNotFoundException("Item não encontrado"));
     }
 
-        public void createItems(Item item) {
+    public void createItems(Item item) {
         iRepository.save(item);
         mRepository.save(item.getMenu());
         rRepository.save(item.getMenu().getFromRestaurant());

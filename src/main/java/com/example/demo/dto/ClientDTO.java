@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.example.demo.domain.Client;
 
-public class ClientsDTO implements Serializable {
+public class ClientDTO implements Serializable {
 
     private String id;
     private String name;
@@ -12,11 +12,11 @@ public class ClientsDTO implements Serializable {
     private String email;
     private String password;
 
-    public ClientsDTO() {
+    public ClientDTO() {
 
     }
 
-    public ClientsDTO(Client cObj) {
+    public ClientDTO(Client cObj) {
         id = cObj.getId();
         name = cObj.getName();
         phone = cObj.getPhone();

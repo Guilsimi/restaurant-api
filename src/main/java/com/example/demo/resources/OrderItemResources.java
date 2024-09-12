@@ -19,7 +19,7 @@ import jakarta.annotation.Resource;
 
 @Resource
 @RestController
-@RequestMapping(value = "/order_item")
+@RequestMapping(value = "/order-item")
 public class OrderItemResources {
 
     @Autowired

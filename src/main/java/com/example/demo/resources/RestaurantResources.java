@@ -66,6 +66,10 @@ public class RestaurantResources {
         return ResponseEntity.noContent().build();
     }
 
+    public void createRestaurant(Restaurant restaurant) {
+        restService.createRestaurant(restaurant);
+    }
+
     public void removeAll() {
         restService.removeAll();
      }

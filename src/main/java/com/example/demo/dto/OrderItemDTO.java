@@ -2,8 +2,6 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Order;
 import com.example.demo.domain.OrderItem;
@@ -14,8 +12,6 @@ public class OrderItemDTO implements Serializable {
     private Item item;
     private Integer quantity;
     private Double subTotal;
-
-    @DBRef(lazy = true)
     private Order order;
 
     public OrderItemDTO() {

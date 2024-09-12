@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Client;
 import com.example.demo.domain.Order;
-import com.example.demo.dto.OrdersDTO;
+import com.example.demo.dto.OrderDTO;
 import com.example.demo.services.OrderServices;
 
 import jakarta.annotation.Resource;
@@ -26,20 +26,20 @@ public class OrderResources {
     private OrderServices oServices;
 
     @GetMapping
-    public ResponseEntity<List<OrdersDTO>> findAll() {
+    public ResponseEntity<List<OrderDTO>> findAll() {
         List<Order> oList = oServices.findAll();
-        List<OrdersDTO> oDtoList = oList.stream().map(obj -> new OrdersDTO(obj)).collect(Collectors.toList());
+        List<OrderDTO> oDtoList = oList.stream().map(obj -> new OrderDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(oDtoList);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<OrdersDTO> findById(@PathVariable String id) {
+    public ResponseEntity<OrderDTO> findById(@PathVariable String id) {
         Order orderObj = oServices.findById(id);
-        return ResponseEntity.ok().body(new OrdersDTO(orderObj));
+        return ResponseEntity.ok().body(new OrderDTO(orderObj));
     }
 
     public void createOrders(Order order) {
-        for(Client c : Client.getClientList()) {
+        for (Client c : Client.getClientList()) {
             if (order.getOrderClient().equals(c)) {
                 c.getOrders().add(order);
             }
@@ -49,5 +49,5 @@ public class OrderResources {
 
     public void removeAll() {
         oServices.removeAll();
-     }
+    }
 }

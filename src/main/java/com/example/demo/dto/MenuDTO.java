@@ -5,16 +5,16 @@ import java.io.Serializable;
 import com.example.demo.domain.Menu;
 import com.example.demo.domain.Restaurant;
 
-public class MenusDTO implements Serializable {
+public class MenuDTO implements Serializable {
 
     private String id;
     private String type;
     private Restaurant fromRestaurant;
     
-    public MenusDTO() {
+    public MenuDTO() {
     }
 
-    public MenusDTO(Menu menu) {
+    public MenuDTO(Menu menu) {
         id = menu.getId();
         type = menu.getType();
     }

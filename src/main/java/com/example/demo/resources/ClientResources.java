@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Client;
-import com.example.demo.dto.ClientsDTO;
+import com.example.demo.dto.ClientDTO;
 import com.example.demo.services.ClientServices;
 
 import jakarta.annotation.Resource;
@@ -25,19 +25,23 @@ public class ClientResources {
     private ClientServices cServices;
 
     @GetMapping
-    public ResponseEntity<List<ClientsDTO>> findAll() {
+    public ResponseEntity<List<ClientDTO>> findAll() {
         List<Client> cList = cServices.findAll();
-        List<ClientsDTO> cDtoList = cList.stream().map(clients -> new ClientsDTO(clients)).collect(Collectors.toList());
+        List<ClientDTO> cDtoList = cList.stream().map(clients -> new ClientDTO(clients)).collect(Collectors.toList());
         return ResponseEntity.ok().body(cDtoList);
     }
 
-    @GetMapping(value = "/{id}") 
-    public ResponseEntity<ClientsDTO> findById(@PathVariable String id) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> findById(@PathVariable String id) {
         Client cObj = cServices.findById(id);
-        return ResponseEntity.ok().body(new ClientsDTO(cObj));
+        return ResponseEntity.ok().body(new ClientDTO(cObj));
     }
 
     public void removeAll() {
         cServices.removeAll();
-     }
+    }
+
+    public void createClient(Client client) {
+        cServices.createClient(client);
+    }
 }

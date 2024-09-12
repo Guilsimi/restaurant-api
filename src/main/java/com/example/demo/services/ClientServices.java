@@ -28,4 +28,8 @@ public class ClientServices {
     public void removeAll() {
         cRepository.deleteAll();
     }
+
+    public void createClient(Client client) {
+        cRepository.save(client);
+    }
 }

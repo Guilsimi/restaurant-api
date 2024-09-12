@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Menu;
 import com.example.demo.domain.Restaurant;
-import com.example.demo.dto.MenusDTO;
+import com.example.demo.dto.MenuDTO;
 import com.example.demo.services.MenuServices;
 
 import jakarta.annotation.Resource;
@@ -26,16 +26,16 @@ public class MenuResources {
     private MenuServices mServices;
 
     @GetMapping
-    public ResponseEntity<List<MenusDTO>> findAll() {
+    public ResponseEntity<List<MenuDTO>> findAll() {
         List<Menu> mList = mServices.findAll();
-        List<MenusDTO> mDtoList = mList.stream().map(obj -> new MenusDTO(obj)).collect(Collectors.toList());
+        List<MenuDTO> mDtoList = mList.stream().map(obj -> new MenuDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(mDtoList);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<MenusDTO> findById(@PathVariable String id) {
+    public ResponseEntity<MenuDTO> findById(@PathVariable String id) {
         Menu menuObj = mServices.findById(id);
-        return ResponseEntity.ok().body(new MenusDTO(menuObj));
+        return ResponseEntity.ok().body(new MenuDTO(menuObj));
     }
 
     public void createMenu(Menu menu) {
