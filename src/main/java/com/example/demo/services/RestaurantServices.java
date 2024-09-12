@@ -35,6 +35,10 @@ public class RestaurantServices {
         restRepository.deleteById(id);
     }
 
+    public void removeAll() {
+        restRepository.deleteAll();
+    }
+
     public Restaurant update(Restaurant restObj) {
         Restaurant newRestObj = findById(restObj.getId());
         updateData(newRestObj, restObj);

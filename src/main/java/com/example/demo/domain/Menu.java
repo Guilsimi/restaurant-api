@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.example.demo.dto.FromRestaurantDTO;
 
 @Document
 public class Menu implements Serializable {
@@ -17,14 +16,16 @@ public class Menu implements Serializable {
     @Id
     private String id;
     private String type;
-    private FromRestaurantDTO fromRestaurant;
+
+    @DBRef(lazy = true)
+    private Restaurant fromRestaurant;
     
     private List<Item> items = new ArrayList<>();
 
     public Menu() {
     }
 
-    public Menu(String id, String type, FromRestaurantDTO fromRestaurant) {
+    public Menu(String id, String type, Restaurant fromRestaurant) {
         this.id = id;
         this.type = type;
         this.fromRestaurant = fromRestaurant;
@@ -64,11 +65,11 @@ public class Menu implements Serializable {
         return result;
     }
 
-    public FromRestaurantDTO getFromRestaurant() {
+    public Restaurant getFromRestaurant() {
         return fromRestaurant;
     }
 
-    public void setFromRestaurant(FromRestaurantDTO fromRestaurant) {
+    public void setFromRestaurant(Restaurant fromRestaurant) {
         this.fromRestaurant = fromRestaurant;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Menu;
+import com.example.demo.domain.Restaurant;
 import com.example.demo.dto.MenusDTO;
 import com.example.demo.services.MenuServices;
 
@@ -36,4 +37,17 @@ public class MenuResources {
         Menu menuObj = mServices.findById(id);
         return ResponseEntity.ok().body(new MenusDTO(menuObj));
     }
+
+    public void createMenu(Menu menu) {
+        for (Restaurant r : Restaurant.getRestaurantsList()) {
+            if (menu.getFromRestaurant().equals(r)) {
+                r.getMenus().add(menu);
+            }
+        }
+        mServices.createMenu(menu);
+    }
+
+    public void removeAll() {
+        mServices.removeAll();
+     }
 }

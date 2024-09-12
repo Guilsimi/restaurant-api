@@ -36,4 +36,8 @@ public class ClientResources {
         Client cObj = cServices.findById(id);
         return ResponseEntity.ok().body(new ClientsDTO(cObj));
     }
+
+    public void removeAll() {
+        cServices.removeAll();
+     }
 }

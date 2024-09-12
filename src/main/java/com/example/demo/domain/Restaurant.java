@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Restaurant implements Serializable {
 
+    private static List<Restaurant> restaurantsList = new ArrayList<>();
+
     @Id
     private String id;
     private String name;
@@ -30,6 +32,8 @@ public class Restaurant implements Serializable {
         this.cnpj = cnpj;
         this.email = email;
         this.password = password;
+
+        restaurantsList.add(this);
     }
 
     public String getId() {
@@ -83,6 +87,10 @@ public class Restaurant implements Serializable {
     public List<Menu> getMenus() {
         return menus;
     }
+
+    public static List<Restaurant> getRestaurantsList() {
+        return restaurantsList;
+    }  
 
     @Override
     public int hashCode() {

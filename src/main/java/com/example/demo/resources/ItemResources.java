@@ -46,4 +46,8 @@ public class ItemResources {
         }
         iServices.createItems(item);
     }
+
+    public void removeAll() {
+        iServices.removeAll();
+     }
 }

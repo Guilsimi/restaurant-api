@@ -47,4 +47,7 @@ public class OrderResources {
         oServices.createOrders(order);
     }
 
+    public void removeAll() {
+        oServices.removeAll();
+     }
 }

@@ -24,4 +24,8 @@ public class ClientServices {
         Optional<Client> client = cRepository.findById(id);
         return client.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado"));
     }
+
+    public void removeAll() {
+        cRepository.deleteAll();
+    }
 }

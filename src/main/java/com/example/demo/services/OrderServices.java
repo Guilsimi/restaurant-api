@@ -34,4 +34,8 @@ public class OrderServices {
         cRepository.save(order.getOrderClient());
     }
 
+    public void removeAll() {
+        oRepository.deleteAll();
+    }
+
 }

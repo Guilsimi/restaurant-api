@@ -1,22 +1,34 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class OrderItem implements Serializable {
+
+    private static List<OrderItem> orderItemList = new ArrayList<>();
 
     private String id;
     private Item item;
     private Integer quantity;
     private Double subTotal;
 
+    @DBRef(lazy = true)
+    private Order order;
+
     public OrderItem() {
 
     }
 
-    public OrderItem(Item item, Integer quantity) {
+    public OrderItem(Item item, Order order, Integer quantity) {
         this.id = item.getId();
         this.item = item;
         this.quantity = quantity;
+        this.order = order;
+
+        orderItemList.add(this);
     }
 
     public Item getItem() {
@@ -43,6 +55,18 @@ public class OrderItem implements Serializable {
 
     public Double getSubTotal() {
         return subTotal;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public static List<OrderItem> getOrderItemList() {
+        return orderItemList;
     }
 
     @Override

@@ -65,4 +65,8 @@ public class RestaurantResources {
         restObj = restService.update(restObj);
         return ResponseEntity.noContent().build();
     }
+
+    public void removeAll() {
+        restService.removeAll();
+     }
 }

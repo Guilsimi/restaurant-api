@@ -14,6 +14,7 @@ import com.example.demo.services.exception.ObjectNotFoundException;
 @Document
 public class Order implements Serializable {
 
+    private static List<Order> ordersList = new ArrayList<>();
     @Id
     private String id;
     private int payment;
@@ -34,6 +35,8 @@ public class Order implements Serializable {
         setPaymentForm(payment);
         this.address = address;
         this.orderClient = orderClient;
+
+        ordersList.add(this);
     }
 
     public String getId() {
@@ -82,8 +85,8 @@ public class Order implements Serializable {
         this.total = newTotal;
     }
 
-    public void addOrderItem(List<OrderItem> items) {
-        this.orderItems.addAll(items);
+    public void addOrderItem(OrderItem items) {
+        this.orderItems.add(items);
         updateTotal();
     }
 
@@ -98,6 +101,10 @@ public class Order implements Serializable {
 
     public Double getTotal() {
         return total;
+    }
+
+    public static List<Order> getOrdersList() {
+        return ordersList;
     }
 
     @Override
