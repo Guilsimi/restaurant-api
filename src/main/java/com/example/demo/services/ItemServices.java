@@ -53,7 +53,7 @@ public class ItemServices {
         return iRepository.save(itemObj);
     }
 
-    public void updateData(Item itemObj, Item newItemObj) {
+    private void updateData(Item itemObj, Item newItemObj) {
         itemObj.setName(newItemObj.getName() != null ? newItemObj.getName() : itemObj.getName());
         itemObj.setValue(newItemObj.getValue() != null ? newItemObj.getValue() : itemObj.getValue());
         itemObj.setDescription(newItemObj.getDescription() != null ? newItemObj.getDescription() : itemObj.getDescription());

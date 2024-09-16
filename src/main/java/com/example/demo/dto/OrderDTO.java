@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class OrderDTO implements Serializable {
 
     private String id;
-    private Double value;
     private PaymentForm payment;
     private String address;
     private Client client;
+    private Double total;
 
     public OrderDTO() {
 
@@ -23,6 +23,7 @@ public class OrderDTO implements Serializable {
         id = order.getId();
         payment = order.getPaymentForm();
         address = order.getAddress();
+        total = order.getTotal();
     }
 
     public String getId() {
@@ -31,14 +32,6 @@ public class OrderDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
     }
 
     public String getAddress() {
@@ -64,6 +57,14 @@ public class OrderDTO implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
 }

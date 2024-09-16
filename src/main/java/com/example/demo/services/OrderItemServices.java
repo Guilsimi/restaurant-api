@@ -53,7 +53,7 @@ public class OrderItemServices {
         return oiRepository.save(newOrderItemObj);
     }
 
-    public void updateData(OrderItem newOrderItem, OrderItem orderItem) {
+    private void updateData(OrderItem newOrderItem, OrderItem orderItem) {
         newOrderItem.setItem(orderItem.getItem() != null ? orderItem.getItem() : newOrderItem.getItem());
         newOrderItem.setOrder(orderItem.getOrder() != null ? orderItem.getOrder() : newOrderItem.getOrder());
         newOrderItem.setQuantity(orderItem.getQuantity() != null ? orderItem.getQuantity() : newOrderItem.getQuantity());
