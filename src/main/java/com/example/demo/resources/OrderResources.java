@@ -44,12 +44,13 @@ public class OrderResources {
         return ResponseEntity.ok().body(new OrderDTO(orderObj));
     }
 
-     @PostMapping
+    @PostMapping
     public ResponseEntity<Void> insert(@RequestBody OrderDTO objDTO) {
         Order orderObj = oServices.fromDTO(objDTO);
         orderObj = oServices.insert(orderObj);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orderObj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orderObj.getId())
+                .toUri();
         return ResponseEntity.created(uri).build();
     }
 
