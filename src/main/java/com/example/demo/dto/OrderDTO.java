@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.example.demo.domain.Client;
 import com.example.demo.domain.Order;
 import com.example.demo.domain.enums.PaymentForm;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OrderDTO implements Serializable {
 
@@ -13,7 +14,7 @@ public class OrderDTO implements Serializable {
     private PaymentForm payment;
     private String address;
     private Client client;
-    
+
     public OrderDTO() {
 
     }
@@ -56,6 +57,7 @@ public class OrderDTO implements Serializable {
         this.payment = payment;
     }
 
+    @JsonIgnore
     public Client getClient() {
         return client;
     }
@@ -64,5 +66,4 @@ public class OrderDTO implements Serializable {
         this.client = client;
     }
 
-    
 }

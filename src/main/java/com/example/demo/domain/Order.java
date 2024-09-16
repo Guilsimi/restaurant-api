@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.demo.domain.enums.PaymentForm;
 import com.example.demo.services.exception.ObjectNotFoundException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document
 public class Order implements Serializable {
@@ -65,6 +66,7 @@ public class Order implements Serializable {
         }
     }
 
+    @JsonIgnore
     public Client getOrderClient() {
         return orderClient;
     }
@@ -73,6 +75,7 @@ public class Order implements Serializable {
         this.orderClient = orderClient;
     }
 
+    @JsonIgnore
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }

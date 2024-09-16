@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 import com.example.demo.domain.Menu;
 import com.example.demo.domain.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class MenuDTO implements Serializable {
 
     private String id;
     private String type;
     private Restaurant fromRestaurant;
-    
+
     public MenuDTO() {
     }
 
@@ -35,6 +36,7 @@ public class MenuDTO implements Serializable {
         this.type = type;
     }
 
+    @JsonIgnore
     public Restaurant getFromRestaurant() {
         return fromRestaurant;
     }
@@ -42,7 +44,5 @@ public class MenuDTO implements Serializable {
     public void setFromRestaurant(Restaurant fromRestaurant) {
         this.fromRestaurant = fromRestaurant;
     }
-
-    
 
 }
