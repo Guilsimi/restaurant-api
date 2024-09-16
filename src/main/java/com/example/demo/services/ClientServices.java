@@ -41,7 +41,7 @@ public class ClientServices {
         return cRepository.save(newClientObj);
     }
 
-    public void updateData(Client newClientObj, Client clientObj) {
+    private void updateData(Client newClientObj, Client clientObj) {
         newClientObj.setName(clientObj.getName() != null ? clientObj.getName() : newClientObj.getName());
         newClientObj.setEmail(clientObj.getEmail() != null ? clientObj.getEmail() : newClientObj.getEmail());
         newClientObj.setPhone(clientObj.getPhone() != null ? clientObj.getPhone() : newClientObj.getPhone());
