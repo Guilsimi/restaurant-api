@@ -45,10 +45,6 @@ public class RestaurantServices {
         return restRepository.save(newRestObj);
     }
 
-    public void createRestaurant(Restaurant restaurant) {
-        restRepository.save(restaurant);
-    }
-
     private void updateData(Restaurant newRestObj, Restaurant restObj) {
         newRestObj.setName(restObj.getName() != null ? restObj.getName() : newRestObj.getName());
         newRestObj.setPhone(restObj.getPhone() != null ? restObj.getPhone() : newRestObj.getPhone());
@@ -56,8 +52,12 @@ public class RestaurantServices {
         newRestObj.setEmail(restObj.getEmail() != null ? restObj.getEmail() : newRestObj.getEmail());
     }
 
+    public void createRestaurant(Restaurant restaurant) {
+        restRepository.save(restaurant);
+    }
+
     public Restaurant fromDTO(RestaurantsDTO objDto) {
         return new Restaurant(objDto.getId(), objDto.getName(), objDto.getPhone(),
-        objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
+                objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
     }
 }

@@ -3,6 +3,8 @@ package com.example.demo.dto;
 import java.io.Serializable;
 
 import com.example.demo.domain.Item;
+import com.example.demo.domain.Menu;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ItemDTO implements Serializable {
 
@@ -10,6 +12,7 @@ public class ItemDTO implements Serializable {
     private String name;
     private Double value;
     private String description;
+    private Menu menuReference;
 
     public ItemDTO() {
     }
@@ -19,6 +22,7 @@ public class ItemDTO implements Serializable {
         name = item.getName();
         value = item.getValue();
         description = item.getDescription();
+        menuReference = item.getMenu();
     }
 
     public String getId() {
@@ -51,6 +55,15 @@ public class ItemDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonIgnore
+    public Menu getMenuReference() {
+        return menuReference;
+    }
+
+    public void setMenuReference(Menu menuReference) {
+        this.menuReference = menuReference;
     }
 
 }
