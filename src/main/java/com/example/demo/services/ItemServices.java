@@ -33,6 +33,10 @@ public class ItemServices {
         return item.orElseThrow(() -> new ObjectNotFoundException("Item não encontrado"));
     }
 
+    public List<Item> fullSearch(String name, Double minValue, double maxValue) {
+        return iRepository.fullSearch(name, minValue, maxValue);
+    }
+
     public void createItems(Item item) {
         iRepository.save(item);
         mRepository.save(item.getMenu());

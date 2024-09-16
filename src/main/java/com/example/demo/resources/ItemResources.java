@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Menu;
 import com.example.demo.dto.ItemDTO;
+import com.example.demo.resources.utils.URL;
 import com.example.demo.services.ItemServices;
 
 import jakarta.annotation.Resource;
@@ -38,9 +40,20 @@ public class ItemResources {
         return ResponseEntity.ok().body(new ItemDTO(iObj));
     }
 
+
+    @GetMapping(value = "/fullsearch")
+    public ResponseEntity<List<Item>> fullSearch(
+            @RequestParam(value = "name", defaultValue = "") String name,
+            @RequestParam(value = "minValue", defaultValue = "") String minValue,
+            @RequestParam(value = "maxValue", defaultValue = "100000") String maxValue) {
+        name = URL.decodeParam(name);
+        List<Item> list = iServices.fullSearch(name, URL.convertDouble(minValue), URL.convertDouble(maxValue));
+        return ResponseEntity.ok().body(list);
+    }
+
     public void createItems(Item item) {
-        for(Menu m : Menu.getMenuList()) {
-            if(item.getMenu().equals(m)) {
+        for (Menu m : Menu.getMenuList()) {
+            if (item.getMenu().equals(m)) {
                 m.getItems().add(item);
             }
         }
@@ -49,5 +62,5 @@ public class ItemResources {
 
     public void removeAll() {
         iServices.removeAll();
-     }
+    }
 }
