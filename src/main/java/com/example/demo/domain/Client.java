@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.demo.utils.PasswordUtil;
+
 @Document
 public class Client implements Serializable {
 
@@ -72,7 +74,7 @@ public class Client implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordUtil.hashPassword(password);
     }
 
     public List<Order> getOrders() {

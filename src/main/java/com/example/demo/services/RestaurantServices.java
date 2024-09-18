@@ -10,6 +10,7 @@ import com.example.demo.domain.Restaurant;
 import com.example.demo.dto.RestaurantsDTO;
 import com.example.demo.repository.RestaurantRepository;
 import com.example.demo.services.exception.ObjectNotFoundException;
+import com.example.demo.utils.PasswordUtil;
 
 @Service
 public class RestaurantServices {
@@ -26,7 +27,13 @@ public class RestaurantServices {
         return restaurant.orElseThrow(() -> new ObjectNotFoundException("Restaurante não encontrado"));
     }
 
-    public Restaurant insert(Restaurant restObj) {
+    public Restaurant findByEmail(String email) {
+        Optional<Restaurant> restaurant = restRepository.findByEmail(email);
+        return restaurant.orElseThrow(() -> new ObjectNotFoundException("Restaurante não encontrado"));
+    }
+
+    public Restaurant insert(Restaurant restObj, String password) {
+        restObj.setPassword(password);
         return restRepository.insert(restObj);
     }
 
@@ -52,7 +59,8 @@ public class RestaurantServices {
         newRestObj.setEmail(restObj.getEmail() != null ? restObj.getEmail() : newRestObj.getEmail());
     }
 
-    public void createRestaurant(Restaurant restaurant) {
+    public void createRestaurant(Restaurant restaurant, String plainPassword) {
+        restaurant.setPassword(plainPassword);
         restRepository.save(restaurant);
     }
 
@@ -60,4 +68,10 @@ public class RestaurantServices {
         return new Restaurant(objDto.getId(), objDto.getName(), objDto.getPhone(),
                 objDto.getCnpj(), objDto.getEmail(), objDto.getPassword());
     }
+
+    public boolean checkPassword(String email, String password) {
+        Restaurant restaurant = findByEmail(email);
+        return PasswordUtil.checkPassword(password, restaurant.getPassword());
+    }
+
 }

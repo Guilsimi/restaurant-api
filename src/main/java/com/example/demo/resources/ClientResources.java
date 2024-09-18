@@ -46,7 +46,7 @@ public class ClientResources {
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody ClientDTO objDTO) {
         Client clientObj = cServices.fromDTO(objDTO);
-        clientObj = cServices.insert(clientObj);
+        clientObj = cServices.insert(clientObj, clientObj.getPassword());
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clientObj.getId())
                 .toUri();
@@ -72,6 +72,6 @@ public class ClientResources {
     }
 
     public void createClient(Client client) {
-        cServices.createClient(client);
+        cServices.createClient(client, client.getPassword());
     }
 }

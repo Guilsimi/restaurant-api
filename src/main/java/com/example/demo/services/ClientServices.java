@@ -26,7 +26,8 @@ public class ClientServices {
         return client.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado"));
     }
 
-    public Client insert(Client clientObj) {
+    public Client insert(Client clientObj, String password) {
+        clientObj.setPassword(password);
         return cRepository.insert(clientObj);
     }
 
@@ -52,7 +53,8 @@ public class ClientServices {
         cRepository.deleteAll();
     }
 
-    public void createClient(Client client) {
+    public void createClient(Client client, String password) {
+        client.setPassword(password);
         cRepository.save(client);
     }
 

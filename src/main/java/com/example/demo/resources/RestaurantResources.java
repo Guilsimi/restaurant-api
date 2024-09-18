@@ -46,7 +46,7 @@ public class RestaurantResources {
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody RestaurantsDTO objDTO) {
         Restaurant restObj = restService.fromDTO(objDTO);
-        restObj = restService.insert(restObj);
+        restObj = restService.insert(restObj, restObj.getPassword());
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(restObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -67,7 +67,7 @@ public class RestaurantResources {
     }
 
     public void createRestaurant(Restaurant restaurant) {
-        restService.createRestaurant(restaurant);
+        restService.createRestaurant(restaurant, restaurant.getPassword());
     }
 
     public void removeAll() {
