@@ -9,5 +9,7 @@ import com.example.demo.domain.Restaurant;
 
 @Repository
 public interface RestaurantRepository extends MongoRepository<Restaurant, String> {
-    Optional<Restaurant> findByEmail(String email);
+
+        Optional<Restaurant> findByEmail(String email);
+
 }

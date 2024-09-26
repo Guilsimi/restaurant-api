@@ -43,6 +43,12 @@ public class RestaurantResources {
         return ResponseEntity.ok().body(new RestaurantsDTO(restaurant));
     }
 
+    @GetMapping(value = "/email/{email}")
+    public ResponseEntity<RestaurantsDTO> findByEmail(@PathVariable String email) {
+        Restaurant restaurant = restService.findByEmail(email);
+        return ResponseEntity.ok().body(new RestaurantsDTO(restaurant));
+    }
+
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody RestaurantsDTO objDTO) {
         Restaurant restObj = restService.fromDTO(objDTO);
